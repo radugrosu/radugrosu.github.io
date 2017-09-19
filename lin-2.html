@@ -25,7 +25,7 @@
 <meta name="author" content="Radu Grosu" />
 <meta name="description" content="A better separation¶In this post we'll explore linear separability further, searching for the 'best' separating boundary between our two classes. After that we'll look into an extension of the concept, which will allow us separate classes which aren't even linearly separable." />
 <meta name="keywords" content="python, svm, cvxopt">
-<meta property="og:site_name" content="First Day of Autumn"/>
+<meta property="og:site_name" content="Tame AI, Slow ML"/>
 <meta property="og:title" content="Better Separations"/>
 <meta property="og:description" content="A better separation¶In this post we'll explore linear separability further, searching for the 'best' separating boundary between our two classes. After that we'll look into an extension of the concept, which will allow us separate classes which aren't even linearly separable."/>
 <meta property="og:locale" content="en_US"/>
@@ -40,7 +40,7 @@
 <meta property="article:tag" content="cvxopt"/>
 <meta property="og:image" content="/images/rg1.jpg">
 
-  <title>First Day of Autumn &ndash; Better Separations</title>
+  <title>Tame AI, Slow ML &ndash; Better Separations</title>
 
 </head>
 <body>
@@ -1603,7 +1603,7 @@ EZGaouREREREasr/BytvAmW3WEIRAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hard-margin-SVM">Hard margin SVM<a class="anchor-link" href="#Hard-margin-SVM">¶</a></h1><p>Last time we used <code>cvxopt</code> to solve a bogus quadratic optimisation. Our objective was simply a constant function, since we just cared about satisfying our inequality constraints - expressions of the requirement that each data point must lie on the correct side of the boundary. But then we wondered, how about using this power for good? Instead of just trying to satisfy the constraints, let's do that <em>and</em> find a better separating linear boundary at the same time.</p>
+<h1 id="Hard-margin-SVM">Hard margin SVM<a class="anchor-link" href="#Hard-margin-SVM">¶</a></h1><p>In the previous <a href="lin-1.html">post</a> we used <code>cvxopt</code> to solve a bogus quadratic optimisation. Our objective was simply a constant function, since we just cared about satisfying our inequality constraints - expressions of the requirement that each data point must lie on the correct side of the boundary. But then we wondered, how about using this power for good? Instead of just trying to satisfy the constraints, let's do that <em>and</em> find a better separating linear boundary at the same time.</p>
 <p>Enter the <em>hard margin</em> SVM. We're way back in the 60'<a href="http://www.svms.org/history.html">s</a>. Bob Dylan's <em>Freewheelin</em>' is blowing in the wind.</p>
 <p>SVM is an acronym for <em>support vector machines</em>. Rest assured, there will be no machines involved. Support vectors, yes, but usually very few of them. They refer to select data points from our training set which are closest to the separating hyperplane with the largest possible margin.</p>
 <p>To derive the large margin objective, notice that the distance of any point $\mathbf{x}_n$ to the hyperplane is
@@ -17808,7 +17808,7 @@ JElqqf8ftEvCOTUGJ2cAAAAASUVORK5CYII=
 {
   "@context" : "http://schema.org",
   "@type" : "Blog",
-  "name": " First Day of Autumn ",
+  "name": " Tame AI, Slow ML ",
   "url" : "https://radugrosu.github.io",
   "image": "/images/rg1.jpg",
   "description": ""
