@@ -6,6 +6,8 @@
 #
 
 ### ---------- Project Specific ---------- ###
+__pycache__
+.ipynb_checkpoints
 *~
 ._*
 *.lock
