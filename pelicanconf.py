@@ -3,7 +3,7 @@
 PATH = 'content'
 
 AUTHOR = 'Radu Grosu'
-SITENAME = 'Tame AI, Slow ML'
+SITENAME = 'Slow Train ML'
 SITEURL = 'http://localhost:8000'
 SITETITLE = AUTHOR
 SITESUBTITLE = ''
@@ -28,6 +28,7 @@ AUTHOR_FEED_RSS = None
 MAIN_MENU = True
 STATIC_PATHS = ['images', 'extras']
 DISQUS_SITENAME = 'radugrosu-com'
+
 # Blogroll
 uri = 'https://radugrosu.github.io'
 # LINKS = (
@@ -40,13 +41,9 @@ SOCIAL = (('twitter', 'https://twitter.com/orgrosu'),
           ('linkedin', 'https://www.linkedin.com/in/radu-grosu-26b86214a/'),
          )
 
-# MENUITEMS = (('Archives', '/archives.html'),
-#              ('Categories', '/categories.html'),
-#              ('Tags', '/tags.html'),
-# )
-
 MENUITEMS = [('Blog', '%s' % uri),
              ('Archives', '%s/archives.html' % uri),
+             ('Tags', '%s/tags.html' % uri),
 ]
 DEFAULT_PAGINATION = 6
 
