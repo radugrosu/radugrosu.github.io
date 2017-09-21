@@ -4634,7 +4634,9 @@ V9N+79YasRQAAAAASUVORK5CYII=
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We made <em>some</em> progress. But what if our dataset is not linearly separable? If it's close to being linearly separable, we could adjust C using cross-validation, and get a boundary that would do a decent job. What if the dataset is <em>utterly</em> non-separable? What if one of the classes completely surrounds the other?</p>
 <p>Enter kernel SVMs. We're in the 90's now. Music died a long time ago.</p>
-<p>The new idea is straightforward - it only took about two decades to arrive at. If the dataset is not linearly separable in the original coordinates, project it into a new space (usually with larger dimensionality) where the linear separation is possible. The strength of the method relies on one particular aspect of the formulation: both the objective and the actual classification involve only dot products. Instead of coming up with a suitable transformation, and taking the dot products of the images, $\mathbf{\phi}(\mathbf{x})^T \mathbf{\phi}(\mathbf{z})$, maybe we can come up with a function to compute the dot products directly. A real valued function $k(\mathbf{x}, \mathbf{z})$ is a <em>valid kernel</em> if there exists a corresponding feature space, such that $k(\mathbf{x}, \mathbf{z}) = \mathbf{\phi}(\mathbf{x})^T \mathbf{\phi}(\mathbf{z})$. To come up with a valid kernel, we <a href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">just</a> have to make sure it is positive semi-definite. Commonly used ones are the polynomial $k(\mathbf{x}, \mathbf{z}) = (\mathbf{x}^T \mathbf{z} + 1)^d$  and Gaussian kernel $k(\mathbf{x}, \mathbf{z}) = e^{-\|\mathbf{x} - \mathbf{z}\|^2/2\sigma^2}$.</p>
+<p>The new idea is straightforward - it only took about two decades to arrive at. If the dataset is not linearly separable in the original coordinates, project it into a new space (usually with larger dimensionality) where the linear separation is possible. The strength of the method relies on one particular aspect of the formulation: both the objective and the actual classification involve only dot products. Instead of coming up with a suitable transformation, and then taking the dot products of the images, $\mathbf{\phi}(\mathbf{x})^T \mathbf{\phi}(\mathbf{z})$, maybe we can find a function - a <em>kernel</em> - that would compute the dot products directly. A real valued function $k(\mathbf{x}, \mathbf{z})$ is a <em>valid kernel</em> if there exists a corresponding feature space, such that $k(\mathbf{x}, \mathbf{z}) = \mathbf{\phi}(\mathbf{x})^T \mathbf{\phi}(\mathbf{z})$. Most of the time we won't know what the feature space actually is, but it won't actually matter either, since we only care about the dot products.</p>
+<p>To come up with a valid kernel, we <a href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">just</a> have to make sure it is <a href="https://en.wikipedia.org/wiki/Positive-definite_kernel">positive semi-definite</a>. Commonly used ones are the polynomial $k_1(\mathbf{x}, \mathbf{z}) = (\mathbf{x}^T \mathbf{z} + 1)^d$  and Gaussian kernel $k_2(\mathbf{x}, \mathbf{z}) = e^{-\|\mathbf{x} - \mathbf{z}\|^2/2\sigma^2}$.</p>
+<p>To come up with new kernels, the easiest way is to combine existing kernels. If we are willing to restrict ourselves to certain types of combinations, the new kernels will also be valid. The composition of a valid kernel with any polynomial with non-negative coefficients is valid. Taking the product of two valid kernels, $k(\mathbf{x}, \mathbf{z}) = k_1(\mathbf{x}, \mathbf{z}) k_2(\mathbf{x}, \mathbf{z})$ also makes a valid kernel, and so does their sum, $k(\mathbf{x}, \mathbf{z}) = k_1(\mathbf{x}, \mathbf{z}) + k_2(\mathbf{x}, \mathbf{z})$.</p>
 </div>
 </div>
 </div>
@@ -4656,7 +4658,7 @@ k(\mathbf{x}, \mathbf{z}) &= (\mathbf{x}^T \mathbf{z})^2\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To make see this more clearly we can plot a toy dataset consisting of two concentric classes.</p>
+<p>To make see this more clearly we can plot a toy dataset consisting of two concentric classes, and it's projection into a 3-dimensional feature space.</p>
 </div>
 </div>
 </div>
@@ -4677,7 +4679,7 @@ k(\mathbf{x}, \mathbf{z}) &= (\mathbf{x}^T \mathbf{z})^2\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Besides the projection associated with the quadratic polynomial kernel, we'll also use also a custom projection: $(x_1, x_2) \mapsto (x_1, x_2, x_1^2 + x_2^2)$ which does an ever better job of creating separation between the classes. For this toy dataset this is easy to find, but for high-dimensional, real-world datasets we'll have to rely on kernels for back-door access to the feature spaces where the classes are closer to being linearly separable.</p>
+<p>In addition to the projection associated with the quadratic polynomial kernel, we'll also use a custom transformation: $(x_1, x_2) \mapsto (x_1, x_2, x_1^2 + x_2^2)$ which does an ever better job of creating separation between the classes. For this toy dataset this is easy to find, but for high-dimensional, real-world datasets we'll have to rely on kernels for back-door access to the feature spaces where the classes are closer to being linearly separable.</p>
 </div>
 </div>
 </div>
@@ -5828,13 +5830,13 @@ P9Lqb2jr4B2aAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As a final remark, the projection is <em>usually</em> onto higher dimensional feature spaces, but it doesn't <em>have</em> to be. For our toy dataset we could have achieved perfect separation even projecting <em>down</em> to a 1-dimensional feature space: $(x_1, x_2) \mapsto x_1^2 + x_2^2$</p>
+<p>As a final remark, the projection is <em>usually</em> onto higher dimensional feature spaces, but it doesn't <em>have</em> to be. For our toy dataset we could have achieved perfect separation even projecting <em>down</em> to a 1-dimensional feature space: $(x_1, x_2) \mapsto x_1^2 + x_2^2$. Of course, we won't be usually this lucky.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [26]:</div>
+<div class="prompt input_prompt">In [28]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_transf_1d</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">):</span>
@@ -5843,17 +5845,7 @@ P9Lqb2jr4B2aAAAAAElFTkSuQmCC
              <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c2</span><span class="p">)),</span>  
              <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'b'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [27]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_transf_1d</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+<span class="n">plot_transf_1d</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
