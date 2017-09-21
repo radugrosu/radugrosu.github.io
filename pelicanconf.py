@@ -26,7 +26,8 @@ AUTHOR_FEED_RSS = None
 # HOME_HIDE_TAGS = True
 
 MAIN_MENU = True
-STATIC_PATHS = ['images', 'extras']
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 DISQUS_SITENAME = 'radugrosu-com'
 
 # Blogroll
@@ -56,10 +57,12 @@ STATIC_PATHS = ['images', 'extra']
 
 MARKUP = ('md', 'ipynb')
 PLUGIN_PATHS = ['./plugins']
-PLUGINS = ['ipynb.markup', 'render_math']
+PLUGINS = ['ipynb.markup', 'render_math', 'post_stats']
 TWITTER_FOLLOW_BUTTON = True
 CC_LICENSE = {
     'name': 'Creative Commons Attribution-ShareAlike',
     'version': '4.0',
     'slug': 'by-sa'
 }
+
+GOOGLE_ANALYTICS = 'UA-106824686-1'

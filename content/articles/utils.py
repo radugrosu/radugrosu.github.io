@@ -68,3 +68,39 @@ def plot_classification(ax, w, mesh_size=0.1, plt_settings=None):
     if plt_settings:
         ax.set(**plt_settings)
     return ax
+
+from mpl_toolkits.mplot3d import Axes3D
+def plot_transform(c1, c2, phi1, phi2):
+    fig = plt.figure(figsize=(11, 5))
+    ax1 = fig.add_subplot(131)
+    ax1.scatter(c1[:, 0], c1[:, 1], s=20)
+    ax1.scatter(c2[:, 0], c2[:, 1], s=20);
+    ax1.set(xlim=(-2, 2), ylim=(-2, 2))
+    ax1.annotate('Original feature space', xy=(0.5,0.98), 
+                 ha='center', va='top',
+                 xycoords='axes fraction', fontsize=12)
+    ax1.set(xlabel='$x_1$', ylabel='$x_2$')
+    ax2 = fig.add_subplot(132, projection='3d')
+    ax2.scatter(c1[:, 0], c1[:, 1], phi1(c1))
+    ax2.scatter(c2[:, 0], c2[:, 1], phi1(c2));
+    ax2.view_init(elev=8., azim=30)
+    ax2.set(xlabel='$x_1$', ylabel='$x_2$')
+    ax2.annotate('Custom transform',
+                 xy=(0.5,0.98), ha='center', va='top',
+                 xycoords='axes fraction', fontsize=12)
+    ax2.annotate('$(x_1,x_2)$ -> $(x_1,x_2,x_1^2 + x_2^2)$',
+                 xy=(0.5,0.88), ha='center', va='top',
+                 xycoords='axes fraction', fontsize=12)
+
+    ax3 = fig.add_subplot(133, projection='3d')
+    ax3.scatter(c1[:, 0]**2, c1[:, 1]**2, phi2(c1))
+    ax3.scatter(c2[:, 0]**2, c2[:, 1]**2, phi2(c2))
+    ax3.view_init(elev=8., azim=320)
+    ax3.set(xlabel='$x_1$', ylabel='$x_2$')
+    ax3.annotate('Transform assoc. with\n a polynomial kernel',
+                 xy=(0.5,0.98), ha='center', va='top',
+                 xycoords='axes fraction', fontsize=12)
+    ax3.annotate('$(x_1,x_2) \mapsto (x_1^2,x_2^2,\sqrt{2}x_1 x_2)$',
+                 xy=(0.5,0.88), ha='center', va='top',
+                 xycoords='axes fraction', fontsize=12)
+    fig.tight_layout()
